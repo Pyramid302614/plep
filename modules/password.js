@@ -16,6 +16,12 @@ module.exports = {
 
         if(attempted == password) authenticated.push(source);
         
+    },
+
+    authed(source) {
+
+        return authenticated.includes(source);
+
     }
 
 }
