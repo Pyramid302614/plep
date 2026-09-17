@@ -7,20 +7,25 @@ module.exports = {
 
         const ret = await handler();
         
-        const body = 
-            typeof ret.file === "string" ?
-                require("fs").readFileSync(ret.file) :
-                (
-                    (typeof ret === "string" ?
-                        ret :
-                        ret.body
-                    ) ?? (
-                        ret.code ??
-                        "[No value was returned]"
-                    )
-                );
-        const code = ret.code ?? 200;
-        const type = ret.type ?? "text/plain";
+        var body = 
+            (typeof ret === "string" ?
+                ret :
+                ret.body
+            ) ?? (
+                ret.code ??
+                "[No value was returned]"
+            )
+        var code = ret.code ?? 200;
+        var type = ret.type ?? "text/plain";
+
+        if(ret.file !== null) {
+            if(require("fs").existsSync(ret.file)) {
+                body = require("fs").readFileSync(ret.file);
+            } else {
+                body = "Cannot find file: " + ret.file
+                code = 404;
+            }
+        }
 
         if(body === "<g>") return;
         
