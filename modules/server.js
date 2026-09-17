@@ -7,7 +7,18 @@ module.exports = {
 
         const ret = await handler();
         
-        const body = (typeof ret === "string" ? ret : ret.body) ?? (ret.code ?? "[No value was returned]");
+        const body = 
+            typeof ret.file === "string" ?
+                require("fs").readFileSync(ret.file) :
+                (
+                    (typeof ret === "string" ?
+                        ret :
+                        ret.body
+                    ) ?? (
+                        ret.code ??
+                        "[No value was returned]"
+                    )
+                );
         const code = ret.code ?? 200;
         const type = ret.type ?? "text/plain";
 
