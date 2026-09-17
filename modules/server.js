@@ -1,11 +1,11 @@
 module.exports = {
 
     // handler should return { body, type, code }  ||  body can be "<g>" (ghosting) for no response
-    handle(res,handler) {
+    async handle(res,handler) {
 
         if(handler == undefined || typeof handler !== "function") console.error("server:handle > parameter 'handler' is undefined or wrong type");
 
-        const ret = handler();
+        const ret = await handler();
         
         const body = (typeof ret === "string" ? ret : ret.body) ?? (ret.code ?? "[No value was returned]");
         const code = ret.code ?? 200;
