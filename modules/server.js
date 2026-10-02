@@ -17,7 +17,7 @@ module.exports = {
                 ret :
                 ret?.body
             ) ?? (
-                ret?.code ??
+                (ret?.code.toString()) ??
                 "[No value was returned]"
             )
         var code = ret?.code ?? 200;
