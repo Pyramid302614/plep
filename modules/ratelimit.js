@@ -9,7 +9,7 @@ module.exports = {
     init(maxSignalsPerSecond,tolerance_) {
 
         tolerance = tolerance_;
-        setInterval(Object.keys(sources).forEach(require("./ratelimit.js").tick),1/maxSignalsPerSecond*tolerance_);
+        setInterval(() => Object.keys(sources).forEach(require("./ratelimit.js").tick),1/maxSignalsPerSecond*tolerance_);
 
     },
 
