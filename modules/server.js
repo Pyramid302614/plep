@@ -15,19 +15,19 @@ module.exports = {
         var body = 
             (typeof ret === "string" ?
                 ret :
-                ret.body
+                ret?.body
             ) ?? (
-                ret.code ??
+                ret?.code ??
                 "[No value was returned]"
             )
-        var code = ret.code ?? 200;
-        var type = ret.type ?? "text/plain";
+        var code = ret?.code ?? 200;
+        var type = ret?.type ?? "text/plain";
 
-        if(ret.file !== null) {
-            if(require("fs").existsSync(ret.file)) {
-                body = require("fs").readFileSync(ret.file);
+        if(ret?.file !== null && ret?.file !== undefined) {
+            if(require("fs").existsSync(ret?.file)) {
+                body = require("fs").readFileSync(ret?.file);
             } else {
-                body = "Cannot find file: " + ret.file
+                body = "Cannot find file: " + ret?.file
                 code = 404;
             }
         }
