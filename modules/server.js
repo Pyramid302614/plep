@@ -6,7 +6,7 @@ module.exports = {
         if(handler == undefined || typeof handler !== "function") console.error("server:handle > parameter 'handler' is undefined or wrong type");
 
         const args = [];
-        if(req.url.includes("?")) req.url.slice(req.url.split("?")[0].length).split("&").forEach(i => args[i.split("=")[0]] = i.slice(i.split("=")[0].length));
+        if(req.url.includes("?")) req.url.slice(req.url.split("?")[0].length+1).split("&").forEach(i => args[i.split("=")[0]] = i.slice(i.split("=")[0].length+1));
         const ret = await handler(
             req.url.split("?")[0].slice(1),
             args
@@ -17,7 +17,7 @@ module.exports = {
                 ret :
                 ret?.body
             ) ?? (
-                (ret?.code.toString()) ??
+                (ret?.code?.toString?.()) ??
                 "[No value was returned]"
             )
         var code = ret?.code ?? 200;
